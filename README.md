@@ -1,69 +1,87 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# GrowMeOrganic Pagination
 
-Currently, two official plugins are available:
+A React + TypeScript application that displays artwork data from the Art Institute of Chicago API with **custom checkbox selection**, and **PrimeReact DataTable** integration. Built for a React internship assignment with all constraints and checks fulfilled.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##  Demo
 
-## Expanding the ESLint configuration
+Live URL: https://growmeorganicpgn.netlify.app
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+##  Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+-  **Vite + React + TypeScript** setup
+-  **PrimeReact DataTable** for grid rendering
+-  **Server-side pagination** using the `page` query param
+-  **Row selection with checkboxes**
+-  **Custom selection control panel** using an overlay and input number
+-  **Selection persists across pagination**
+-  Displays fields: `title`, `place_of_origin`, `artist_display`, `inscriptions`, `date_start`, `date_end`
+-  **Graceful fallback** for missing data
+-  Styled with TailwindCSS + PrimeReact theme
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠️ Technologies Used
+
+- [React 19](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [PrimeReact](https://primereact.org/datatable/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Art Institute of Chicago API](https://api.artic.edu/api/v1/artworks)
+
+## 📦 Setup & Installation
+
+### Prerequisites
+
+- Node.js
+- npm, yarn or pnpm
+
+### Steps
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/GyanPrakash2483/GrowMeOrganic-Pagination
+cd GrowMeOrganic-Pagination
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. **Install dependencies**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+3. **Run locally**
+
+```bash
+npm run dev
+```
+
+4. Visit `http://localhost:5173` in your browser.
+
+
+## 📊 Pagination Logic
+- API endpoint:  
+  `https://api.artic.edu/api/v1/artworks?page=<pageNumber>`
+- On each page change:
+  - A new API call is made.
+  - No data is cached across pages to **prevent memory overflow** (per assignment instructions).
+
+
+## ✅ Row Selection Logic
+
+- Checkbox selection per row using `<Column selectionMode="multiple" />`
+- Custom selection panel:
+  - Opens via a dropdown icon.
+  - Lets user input how many rows to auto-select from current page.
+- Selection is **persisted across pages** using a shared `selections` state.
+
+## 🧪 Assignment Requirements Met
+
+✅ Vite + TypeScript used  
+✅ PrimeReact DataTable used  
+✅ Server-side pagination  
+✅ Selection panel with persistence  
+✅ No data cache across pages  
+✅ Deployed (non-Vercel platform)  
+✅ Clean codebase, all fields rendered
