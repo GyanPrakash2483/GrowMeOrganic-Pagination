@@ -61,15 +61,33 @@ export default function MainTable() {
 
     const [numSelection, setNumSelection] = useState<number | null>(null)
 
-    const selectRows = () => {
-        console.log(numSelection)
+    const selectRows = async () => {
+        // console.log(numSelection)
         
         const newSelections = [...selections]
         for(let i = 0; i < Math.min(12, Number(numSelection)); i++) {
             newSelections.push(tableData[i])
         }
-        console.log(newSelections)
+
+        if(Number(numSelection) > 12 && currPage < 10770) {
+            await extraSelectionSubroutine(Number(numSelection) - 12, currPage + 1, newSelections)
+        }
+
         setSelections(newSelections)
+    }
+
+    const extraSelectionSubroutine = async (numRemaining: number, targetPage: number, selectionList: TableRow[]) => {
+        fetch(`https://api.artic.edu/api/v1/artworks?page=${targetPage}`)
+            .then((response) => response.json())
+            .then(async (data) => {
+                for(let i = 0; i < Math.min(12, numRemaining); i++) {
+                    selectionList.push(data.data[i])
+                }
+                
+                if(numRemaining > 12 && targetPage < 10770) {
+                    await extraSelectionSubroutine(numRemaining - 12, targetPage + 1, selectionList)
+                }
+            })
     }
 
     return (
