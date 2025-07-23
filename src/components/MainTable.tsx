@@ -12,6 +12,8 @@ import { OverlayPanel } from "primereact/overlaypanel"
 import { InputNumber, type InputNumberChangeEvent } from "primereact/inputnumber"
 import { Button } from "primereact/button"
 
+import api from '../api.ts'
+
 interface TableRow {
     title?: string,
     place_of_origin?: string
@@ -33,7 +35,7 @@ export default function MainTable() {
 
     useEffect(() => {
         setIsLoaded(false)
-        fetch(`https://api.artic.edu/api/v1/artworks?page=${currPage}`)
+        api.getArtwork(currPage)
             .then((response) => response.json())
             .then((data) => {
                 setTableData(data.data)
@@ -77,7 +79,7 @@ export default function MainTable() {
     }
 
     const extraSelectionSubroutine = async (numRemaining: number, targetPage: number, selectionList: TableRow[]) => {
-        fetch(`https://api.artic.edu/api/v1/artworks?page=${targetPage}`)
+        api.getArtwork(targetPage)
             .then((response) => response.json())
             .then(async (data) => {
                 for(let i = 0; i < Math.min(12, numRemaining); i++) {
