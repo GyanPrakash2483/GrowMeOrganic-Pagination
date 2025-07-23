@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { DataTable, type DataTableSelectionMultipleChangeEvent, type DataTableValueArray } from "primereact/datatable"
-import { Column, type ColumnHeaderOptions } from "primereact/column"
+import { Column } from "primereact/column"
 
 import 'primereact/resources/themes/md-dark-indigo/theme.css'
 import { Paginator, type PaginatorPageChangeEvent } from "primereact/paginator"
